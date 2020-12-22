@@ -1,0 +1,22 @@
+form {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  padding: 5px;
+}
+
+.input-button {
+  color: #eee;
+  background: #3E4452;
+  padding: 10px;
+  border-radius: 9rem;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.input-text {
+  border-radius: 9rem;
+  padding: 10px
+}
