@@ -1,42 +1,35 @@
-import React, {Component} from 'react';
-import ListGifs from '../ListGifs/ListGifs'
-import './Searcher.css'
+import React, { useState } from 'react'
+import { useLocation } from 'wouter'
 
-class Searcher extends Component {
+export default function Searcher() {
+  const [keyword, setKeyword] = useState('')
+  const [, pushLocation] = useLocation()
 
-  searchRef = React.createRef()
-
-  state = {
-    gifs: null,
-    value: ''
+  const handleChange = (event) => {
+    setKeyword(event.target.value)
   }
 
-  getInfo = (e) => {
-    e.preventDefault()
-    this.setState({ value: this.searchRef.current.value})
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    onSubmit({ keyword })
   }
 
-  onChangeHandler = async e => {
-    this.setState({value: e.target.value});
-  };
-
-  get renderGifs() {
-    let gifs = <h1>There's no gifs</h1>;
-    if (this.state.value !== '') {
-      gifs = <ListGifs keyword={this.state.value}/>
+  const onSubmit = ({ keyword }) => {
+    if (keyword !== '') {
+      pushLocation(`/${keyword}`)
     }
-    return gifs
   }
 
-  render() {
-    return (
+  return (
+    <>
       <div className="container">
-        <form onSubmit={this.getInfo}>
+        <form onSubmit={handleSubmit}>
           <div>
             <input
               type="text"
-              ref={this.searchRef}
+              value={keyword}
               className="input-text"
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -47,10 +40,8 @@ class Searcher extends Component {
             />
           </div>
         </form>
-        {this.renderGifs}
       </div>
-    )
-  }
+    </>
+  )
 }
 
-export default Searcher
